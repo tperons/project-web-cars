@@ -1,0 +1,135 @@
+{% extends "global/base.html" %}
+
+{% load i18n humanize %}
+{% load l10n %}
+
+{% block header %}{% endblock header %}
+
+{% block content %}
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Dashboard Administrativa</h1>
+    </div>
+
+    {# KEY PERFORMANCE INDICATOR #}
+    <div class="row g-4 mb-4">
+        <div class="col-lg-3 col-md-6">
+            <div class="card kpi-card">
+                <div class="card-body">
+                    <div class="kpi-icon bg-info">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <div>
+                        <h6 class="card-subtitle text-muted">Veículos em Estoque</h6>
+                        <h4 class="card-title fw-bold">{{ cars_inventory.cars_count }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card kpi-card">
+                <div class="card-body">
+                    <div class="kpi-icon bg-primary">
+                        <i class="fas fa-sack-dollar"></i>
+                    </div>
+                    <div>
+                        <h6 class="card-subtitle text-muted">Patrimônio</h6>
+                        <h4 class="card-title fw-bold">R$ {{ cars_inventory.cars_value|floatformat:2 }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card kpi-card">
+                <div class="card-body">
+                    <div class="kpi-icon bg-success">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div>
+                        <h6 class="card-subtitle text-muted">Veículos Vendidos (30d)</h6>
+                        <h4 class="card-title fw-bold">{{ recent_sales_count }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card kpi-card">
+                <div class="card-body">
+                    <div class="kpi-icon bg-warning">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div>
+                        <h6 class="card-subtitle text-muted">Receita (30d)</h6>
+                        <h4 class="card-title fw-bold">R$ {{ recent_sales_value|floatformat:2 }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# INVENTORY MANAGEMENT TABLE #}
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="table-card">
+                <h5 class="section-title">Gerenciamento de Estoque</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>Veículo</th>
+                                <th>Preço</th>
+                                <th>Data de Entrada</th>
+                                <th>Dias no Pátio</th>
+                                <th>Status</th>
+                                <th>Responsável</th>
+                                <th class="text-end">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for car in cars_stock %}
+                                <tr>
+                                    <td>
+                                        <a class="nav-link" href="{% url "cars:car_detail" car.pk %}">
+                                            {{ car.brand.name }} {{ car.model }} {{ car.version }} {{ car.year|unlocalize }}
+                                        </a>
+                                    </td>
+                                    <td>R$ {{ car.value|floatformat:2 }}</td>
+                                    <td>{{ car.created_at|date:"d/m/Y" }}</td>
+                                    <td>{{ car.days_in_stock }}</td>
+                                    <td>
+                                        {% if car.status == "AVAILABLE" %}
+                                            <span class="badge bg-info">{{ car.get_status_display }}</span>
+                                        {% elif car.status == "OLD_STOCK" %}
+                                            <span class="badge bg-warning text-dark">{{ car.get_status_display }}</span>
+                                        {% elif car.status == "SOLD" %}
+                                            <span class="badge bg-success">{{ car.get_status_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ car.owner.first_name }}</td>
+                                    <td class="text-end">
+                                        {% if car.status != 'SOLD' %}
+                                            <a href="{% url "cars:car_update" car.pk %}" class="btn btn-sm btn-outline-secondary" title="Editar"><i class="fas fa-edit"></i></a>
+                                            <form action="{% url "cars:car_sold" car.pk %}" method="POST" style="display: inline;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-sm btn-outline-primary" title="Vender">
+                                                    <i class="fas fa-cart-shopping"></i>
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                        {% if user == car.owner or user.is_staff %}
+                                            <a href="{% url "cars:car_delete" car.pk %}" class="btn btn-sm btn-outline-danger" title="Apagar"><i class="fas fa-trash"></i></a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

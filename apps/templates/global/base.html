@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        {% include "partials/head.html" %}
+    </head>
+    
+    <body>
+
+        {# NAVBAR #}
+        {% include "partials/navbar.html" %}
+
+        {# HEADER #}
+        {% block header %}
+            {% include "partials/header.html" %}
+        {% endblock header %}
+
+        {# MAIN CONTENT #}
+        <main class="container py-5">
+
+            {# MESSAGES #}
+            {% if messages %}
+                {% include "partials/messages.html" %}
+            {% endif %}
+            {% block content %}{% endblock content %}
+
+        </main>
+
+        {# FOOTER #}
+        {% include "partials/footer.html" %}
+        
+    </body>
+</html>

@@ -1,0 +1,33 @@
+{% extends "global/base.html" %}
+
+{% load l10n %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <div class="form-card">
+                    <h2 class="mb-4">Confirmar Exclusão</h2>
+                    <p class="lead">
+                        Tem a certeza de que deseja apagar permanentemente o veículo 
+                        <strong>"{{ car.brand.name }} {{ car.model }} {{ car.version }} {{ car.year|unlocalize }}"</strong>?
+                    </p>
+                    <p class="text-danger fw-bold mt-3">
+                        <i class="fas fa-exclamation-triangle"></i> Esta ação não pode ser desfeita.
+                    </p>
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-lg">Sim, Apagar Veículo</button>
+                        <a href="{% url 'users:dashboard' %}" class="btn btn-secondary btn-lg">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+

@@ -1,0 +1,207 @@
+{% extends "global/base.html" %}
+{% load i18n humanize %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+
+    {# MAIN FORM #}
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="form-card">
+
+                {# DYNAMIC TITLE #}
+                <h2 class="text-center mb-4">
+                    {% if object %}
+                        Editando: {{ object.brand.name }} {{ object.model }}
+                    {% else %}
+                        Cadastro de Veículos
+                    {% endif %}
+                </h2>
+                <p class="text-center text-muted mb-5">
+                    {% if not object %}
+                        Preencha as informações abaixo para anunciar o veículo.
+                    {% endif %}
+                </p>
+
+                {# FORM #}
+                <form action="" method="post" enctype="multipart/form-data" id="car-form" data-api-url="{% url 'cars:api_create_related' %}">
+                    {% csrf_token %}
+
+                    {# DISPLAYS ERRORS THAT ARE NOT FROM A SPECIFIC FIELD #}
+                    {% if car_form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in car_form.non_field_errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {# BASIC INFORMATION #}
+                    <h4 class="section-subtitle">Informações Básicas</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6 mb-3">
+                            {{ car_form.brand.label_tag }}
+                            <div class="input-group">
+                                {{ car_form.brand }}
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#creationModal" data-model="brand" data-field-id="id_brand">
+                                    <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                            {% for error in car_form.brand.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ car_form.model.label_tag }}
+                            {{ car_form.model }}
+                            {% for error in car_form.model.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ car_form.year.label_tag }}
+                            {{ car_form.year }}
+                            {% for error in car_form.year.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ car_form.version.label_tag }}
+                            {{ car_form.version }}
+                            {% for error in car_form.version.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ car_form.transmission.label_tag }}
+                            {{ car_form.transmission }}
+                            {% for error in car_form.transmission.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ car_form.mileage.label_tag }}
+                            {{ car_form.mileage }}
+                            {% for error in car_form.mileage.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ car_form.color.label_tag }}
+                            {{ car_form.color }}
+                            {% for error in car_form.color.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ car_form.value.label_tag }}
+                            {{ car_form.value }}
+                            {% for error in car_form.value.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        </div>
+                    </div>
+
+                    {# DESCRIPTION AND OPTIONALS #}
+                    <h4 class="section-subtitle mt-4">Descrição e Opcionais</h4>
+                    <div class="mb-3 form-check">
+                        {{ car_form.ai_description }}
+                        {{ car_form.ai_description.label_tag }}
+                    </div>
+                    <div class="mb-3">
+                        {{ car_form.description.label_tag }}
+                        {{ car_form.description }}
+                        {% for error in car_form.description.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="row g-3" id="optionals-checkbox-list">
+                        {% for checkbox in car_form.optionals %}
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-check">
+                                    {{ checkbox.tag }}
+                                    <label class="form-check-label" for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <button type="button" class="btn btn-outline-secondary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#creationModal" data-model="optional" data-field-id="optionals-checkbox-list">
+                            <i class="fas fa-plus"></i> Adicionar Opcional
+                        </button>
+                        {% for error in car_form.optionals.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                    </div>
+
+                    {# VEHICLE PHOTOS #}
+                    <h4 class="section-subtitle mt-4">Fotos do Veículo</h4>
+                    {% if object %}
+                        <p class="text-muted"><small>Para manter uma foto, basta não enviar um novo ficheiro.</small></p>
+                    {% endif %}
+                    
+                    {# COVER IMAGE PREVIEW #}
+                    {% if object.cover %}
+                        <div class="mb-2">
+                            <label class="form-label d-block">Capa Atual:</label>
+                            <img src="{{ object.cover.url }}" alt="Capa atual" style="max-width: 150px; height: auto; border-radius: 8px;">
+                        </div>
+                    {% endif %}
+                    <div class="mb-3">
+                        {{ car_form.cover.label_tag }}
+                        {{ car_form.cover }}
+                        {% for error in car_form.cover.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                    </div>
+                    
+                    {# PREVIEW OF ADDITIONAL IMAGES #}
+                    {% if object.image %}
+                        <div class="mb-2">
+                            <p class="form-label d-block">Imagens Adicionais Atuais:</p>
+                            {% if object.image.front_view %}<img src="{{ object.image.front_view.url }}" style="max-width: 100px; margin-right: 10px; border-radius: 8px;">{% endif %}
+                            {% if object.image.side_view %}<img src="{{ object.image.side_view.url }}" style="max-width: 100px; margin-right: 10px; border-radius: 8px;">{% endif %}
+                            {% if object.image.back_view %}<img src="{{ object.image.back_view.url }}" style="max-width: 100px; margin-right: 10px; border-radius: 8px;">{% endif %}
+                            {% if object.image.interior_view %}<img src="{{ object.image.interior_view.url }}" style="max-width: 100px; margin-right: 10px; border-radius: 8px;">{% endif %}
+                        </div>
+                    {% endif %}
+                    <div class="row g-3">
+                        <div class="col-md-6 mb-3">
+                            {{ car_form.front_view.label_tag }}
+                            {{ car_form.front_view }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ car_form.side_view.label_tag }}
+                            {{ car_form.side_view }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ car_form.back_view.label_tag }}
+                            {{ car_form.back_view }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ car_form.interior_view.label_tag }}
+                            {{ car_form.interior_view }}
+                        </div>
+                    </div>
+
+                    {# SEND BUTTON #}
+                    <hr class="my-4">
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            {% if object %}
+                                Salvar Alterações
+                            {% else %}
+                                Cadastrar Veículo
+                            {% endif %}
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    {# GENERIC MODAL #}
+    <div class="modal fade" id="creationModal" tabindex="-1" aria-labelledby="creationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="creationModalLabel">Adicionar Novo Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modal-form" onsubmit="return false;">
+                        <input type="hidden" id="modal-model-type">
+                        <input type="hidden" id="modal-field-id">
+                        <div class="mb-3">
+                            <label for="modal-item-name" class="form-label">Nome do Novo Item:</label>
+                            <input type="text" class="form-control" id="modal-item-name" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="save-modal-item">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

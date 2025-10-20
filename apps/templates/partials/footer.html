@@ -1,0 +1,83 @@
+{% load custom_tags %}
+
+<footer id="contact" class="pt-5 pb-4">
+
+    {# MAIN FOOTER #}
+    <div class="container text-center text-md-start">
+        <div class="row">
+
+            {# ABOUT COLUMN #}
+            <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
+                {% if site_setup and site_setup.title %}
+                    <h6 class="text-uppercase fw-bold">{{ site_setup.title }}</h6>
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #007bff; height: 2px" />
+                {% endif %}
+                {% if site_setup and site_setup.about %}
+                    <p style="text-align: justify;">{{ site_setup.about }}</p>
+                {% endif %}
+
+                {# REAL CONTACT #}
+                <p>
+                    Contate o autor em:
+                </p>
+                <p>
+                    <a href="https://www.linkedin.com/in/tperons/" target="_blank" class="me-4 text-reset"><i class="fa-brands fa-linkedin"></i> Linkedin</a>
+                    <a href="https://github.com/tperons" target="_blank" class="me-4 text-reset"><i class="fa-brands fa-github"></i> Github</a>
+                </p>
+
+            </div>
+
+            {# CONTACT COLUMN #}
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <h6 class="text-uppercase fw-bold">Contato</h6>
+                <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #007bff; height: 2px" />
+                
+                {% if site_setup %}
+                    {% if site_setup.address %}
+                        <p><i class="fas fa-home me-3"></i> {{ site_setup.address }}</p>
+                    {% endif %}
+                    {% if site_setup.email %}
+                        <p><i class="fas fa-envelope me-3"></i> {{ site_setup.email }}</p>
+                    {% endif %}
+                    {% if site_setup.phone_number %}
+                        <p><i class="fas fa-phone me-3"></i> {{ site_setup.phone_number|phone_format }}</p>
+                    {% endif %}
+                    {% if site_setup.whatsapp_number %}
+                        <p><i class="fa-brands fa-whatsapp me-3"></i> {{ site_setup.whatsapp_number|phone_format }}</p>
+                    {% endif %}
+                {% endif %}
+                
+            </div>
+
+        </div>
+        
+        {# NETWORK #}
+        <div class="text-center mt-4">
+            {% if site_setup %}
+                {% if site_setup.facebook_url %}
+                    <a href="{{ site_setup.facebook_url }}" target="_blank" class="me-4 text-reset"><i class="fa-brands fa-square-facebook"></i></a>
+                {% endif %}
+                {% if site_setup.twitter_url %}
+                    <a href="{{ site_setup.twitter_url }}" target="_blank" class="me-4 text-reset"><i class="fa-brands fa-x-twitter"></i></a>
+                {% endif %}
+                {% if site_setup.instagram_url %}
+                    <a href="{{ site_setup.instagram_url }}" target="_blank" class="me-4 text-reset"><i class="fa-brands fa-instagram"></i></a>
+                {% endif %}
+            {% endif %}
+        </div>
+
+    </div>
+    
+    {# COPYRIGHT #}
+    <div class="text-center p-3 mt-4" style="background-color: rgba(0, 0, 0, 0.2);">
+        &copy; {% now "Y"%} Copyright:
+        <a class="text-white" href="{% url "index" %}">
+            {% if site_setup and site_setup.title %}
+                {{ site_setup.title }}
+            {% else %}
+                Sua empresa
+            {% endif %}
+        </a>
+    </div>
+    
+</footer>

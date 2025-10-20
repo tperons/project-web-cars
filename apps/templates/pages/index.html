@@ -1,0 +1,82 @@
+{% extends "global/base.html" %}
+
+{% load i18n humanize %}
+{% load l10n %}
+
+{% block content %}
+
+    {# FEATURED STOCK SECTION #}
+    <section id="inventory" class="py-5">
+        <h2 class="section-title">Últimas Novidades no Estoque</h2>
+        <div class="row g-4">
+            {% for car in featured_cars %}
+                <div class="col-lg-4 col-md-6">
+                    {% include "cars/partials/car_card.html" with car=car %}
+                </div>
+            {% empty %}
+                <p class="text-center">Nenhuma novidade no momento. Volte em breve!</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    {# COMPLETE INVENTORY LINK #}
+    <section class="py-3">
+        <div class="d-grid gap-2 col-lg-4 col-md-6 mx-auto">
+            <a href="{% url "cars:car_list" %}" class="btn btn-primary btn-lg">Ver Estoque Completo</a>
+        </div>
+    </section>
+
+    {# WHY CHOOSE US SECTION #}
+    <section id="why-us" class="py-5 bg-light rounded-3">
+        <h2 class="section-title">
+            Por Que Escolher a
+            {% if site_setup.title %}
+                {{ site_setup.title}}
+            {% endif %}
+            ?
+        </h2>
+        <div class="row text-center g-4">
+            <div class="col-md-4">
+                <div class="p-4">
+                    <i class="fas fa-check-circle why-choose-us-icon mb-3"></i>
+                    <h4>Qualidade Inspecionada</h4>
+                    <p class="text-muted">Cada carro passa por uma rigorosa inspeção de múltiplos pontos para garantir que atenda aos nossos altos padrões.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4">
+                    <i class="fas fa-hand-holding-usd why-choose-us-icon mb-3"></i>
+                    <h4>Financiamento Competitivo</h4>
+                    <p class="text-muted">Trabalhamos com vários credores para obter as melhores taxas e condições possíveis no seu financiamento.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4">
+                    <i class="fas fa-award why-choose-us-icon mb-3"></i>
+                    <h4>Reputação de Confiança</h4>
+                    <p class="text-muted">Com centenas de clientes satisfeitos, orgulhamo-nos da transparência e da satisfação do cliente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# TESTIMONIALS SECTION #}
+    <section id="testimonials" class="py-5">
+        <h2 class="section-title">O Que Nossos Clientes Dizem</h2>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="testimonial-card">
+                    <p class="fst-italic" style="text-align: justify;">"A equipe da Prestige Motors tornou a compra do meu carro muito fácil. Sem pressão, apenas um ótimo serviço e uma seleção fantástica. Consegui um ótimo negócio no meu Honda CR-V!"</p>
+                    <footer class="blockquote-footer mt-2">Sarah J.</footer>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="testimonial-card">
+                    <p class="fst-italic" style="text-align: justify;">"Vendi meu carro antigo e comprei um novo aqui. Eles me deram um preço justo na troca e todo o processo foi perfeito. Recomendo fortemente."</p>
+                    <footer class="blockquote-footer mt-2">Michael B.</footer>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

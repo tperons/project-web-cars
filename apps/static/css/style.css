@@ -1,0 +1,332 @@
+/* ==========================================================================
+    GLOBAL SETTINGS AND VARIABLES
+   ========================================================================== */
+:root {
+    --primary-color: #007bff;
+    --text-dark: #343a40;
+    --text-light: #6c757d;
+    --background-dark: #343a40;
+    --background-light: #f8f9fa;
+    --white-color: #ffffff;
+    --default-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --font-weight-bold: 700;
+    --default-radius: 0.75rem;
+    --navbar-height: 70px;
+}
+
+/* ==========================================================================
+    BASE STYLES
+   ========================================================================== */
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: var(--background-light);
+    /* --- USA A VARIÁVEL PARA GARANTIR QUE O CONTEÚDO COMECE ABAIXO DA NAVBAR --- */
+    padding-top: var(--navbar-height);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY
+   ========================================================================== */
+.section-title {
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.section-subtitle {
+    font-weight: var(--font-weight-bold);
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.car-card-title,
+.car-title {
+    font-weight: var(--font-weight-bold);
+    color: var(--text-dark);
+}
+
+.car-price,
+.car-price-detail {
+    font-weight: var(--font-weight-bold);
+    color: var(--primary-color);
+}
+.car-price {
+    font-size: 1.5rem;
+}
+.car-price-detail {
+    font-size: 2.5rem;
+}
+
+/* ==========================================================================
+    NAVBAR AND HERO SECTION
+   ========================================================================== */
+.navbar-brand {
+    font-weight: var(--font-weight-bold);
+    font-size: 1.5rem;
+}
+
+.hero-section {
+    position: relative;
+    overflow: hidden;
+    color: var(--white-color);
+    padding: 120px 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-section h1 {
+    font-weight: var(--font-weight-bold);
+    font-size: 3.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero-section p {
+    font-size: 1.25rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   CORREÇÃO PARA LINKS DE ÂNCORA E NAVBAR FIXA
+   ========================================================================== */
+section[id] {
+    scroll-margin-top: var(--navbar-height);
+}
+
+/* ==========================================================================
+    CARDS
+   ========================================================================== */
+.details-card,
+.inquiry-card,
+.form-card,
+.login-card,
+.table-card,
+.car-card,
+.kpi-card {
+    background-color: var(--white-color);
+    border-radius: var(--default-radius);
+    box-shadow: var(--default-shadow);
+    margin-bottom: 2rem;
+}
+
+.car-card,
+.kpi-card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.car-card {
+    overflow: hidden;
+}
+
+.car-card:hover,
+.kpi-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--hover-shadow);
+}
+
+.details-card,
+.inquiry-card,
+.form-card {
+    padding: 2rem;
+}
+
+.login-card {
+    padding: 2.5rem;
+    max-width: 450px;
+    width: 100%;
+}
+
+.table-card {
+    padding: 1.5rem;
+}
+
+.testimonial-card {
+    background-color: var(--white-color);
+    border-left: 5px solid var(--primary-color);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+    FORMS
+   ========================================================================== */
+.search-form {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-top: 2rem;
+}
+
+.login-card .form-control {
+    padding: 0.75rem 1rem;
+}
+
+.login-card .btn-primary {
+    padding: 0.75rem;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+    SPECIFIC COMPONENTS
+   ========================================================================== */
+.car-card-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.car-card .card-body {
+    padding: 1.5rem;
+}
+
+.car-details {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.main-image-container {
+    position: relative;
+    margin-bottom: 1rem;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--default-radius);
+    box-shadow: var(--default-shadow);
+}
+
+.car-main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.4);
+    color: var(--white-color);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    z-index: 10;
+}
+.gallery-nav:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.gallery-nav.prev {
+    left: 15px;
+}
+.gallery-nav.next {
+    right: 15px;
+}
+
+.car-thumbnail-gallery img {
+    width: 100%;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.car-thumbnail-gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: var(--hover-shadow);
+}
+
+.spec-list {
+    list-style: none;
+    padding: 0;
+}
+.spec-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+.spec-list li:last-child {
+    border-bottom: none;
+}
+.spec-list span {
+    font-weight: 500;
+}
+
+.why-choose-us-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+}
+
+.kpi-card .card-body {
+    display: flex;
+    align-items: center;
+}
+
+.kpi-icon {
+    font-size: 2.5rem;
+    padding: 1.2rem;
+    border-radius: 50%;
+    color: var(--white-color);
+    margin-right: 1.5rem;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==========================================================================
+    FOOTER
+   ========================================================================== */
+footer {
+    background-color: var(--background-dark);
+    color: var(--white-color);
+    padding: 2rem 0;
+}
+
+footer a {
+    color: #adb5bd;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: var(--white-color);
+}
+

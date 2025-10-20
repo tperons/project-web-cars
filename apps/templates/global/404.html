@@ -1,0 +1,25 @@
+{% extends "global/base.html" %}
+{% load static %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+
+    <div class="container text-center py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <i class="fas fa-car-crash fa-5x text-primary mb-4"></i>
+                <h1 class="display-1 fw-bold">404</h1>
+                <h2 class="mb-4">Página Não Encontrada</h2>
+                <p class="lead text-muted mb-4">
+                    Oops! Parece que você pegou um atalho que não existe. A página que você está a procurar pode ter sido removida ou o seu endereço foi alterado.
+                </p>
+                <a href="{% url 'index' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-home me-2"></i> Voltar à Página Inicial
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
