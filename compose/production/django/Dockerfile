@@ -2,7 +2,7 @@
 
 # --- Estágio 1: Build Stage (A "Oficina") ---
 # Começamos com a imagem oficial do Python e instalamos o 'uv'.
-FROM python:3.13-slim-bookworm AS python-build-stage
+FROM python:3.14-slim-bookworm AS python-build-stage
 
 RUN pip install uv
 
@@ -39,7 +39,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 # --- Estágio 2: Run Stage (A Imagem Final) ---
 # Começamos de uma imagem Python limpa e leve.
-FROM python:3.13-slim-bookworm AS python-run-stage
+FROM python:3.14-slim-bookworm AS python-run-stage
 
 ARG APP_HOME=/app
 WORKDIR ${APP_HOME}

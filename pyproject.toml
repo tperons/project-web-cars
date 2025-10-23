@@ -3,7 +3,7 @@ name = "project-web-cars"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 
 
 dependencies = [
@@ -23,5 +23,6 @@ dependencies = [
 dev = [
     "django-debug-toolbar>=6.0.0",
     "django-extensions>=4.1",
+    "flake8>=7.3.0",
     "werkzeug>=3.1.3",
 ]

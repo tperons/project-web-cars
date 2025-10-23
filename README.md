@@ -13,16 +13,23 @@
 
 ### 📝 Índice
 
-* [Descrição](#-descrição)
-* [Funcionalidades](#-funcionalidades)
-* [Tecnologias Utilizadas](#️-tecnologias-utilizadas)
-* [Instalação e Execução](#️-instalação-e-execução)
-* [Como Utilizar](#-como-utilizar)
-* [Configuração do Projeto](#configuração-do-projeto)
-* [Guidelines e Padrões](#guidelines-e-padrões)
-* [Autenticação e Segurança](#autenticação-e-segurança)
-* [Modelagem do Sistema](#modelagem-do-sistema)
-* [Créditos e Agradecimentos](#-créditos-e-agradecimentos)
+- [Project Cars](#project-cars)
+    - [📝 Índice](#-índice)
+  - [📖 Descrição](#-descrição)
+  - [✨ Funcionalidades](#-funcionalidades)
+  - [🛠️ Tecnologias Utilizadas](#️-tecnologias-utilizadas)
+  - [⚙️ Instalação e Execução](#️-instalação-e-execução)
+  - [🚀 Como Utilizar](#-como-utilizar)
+  - [Configuração do Projeto](#configuração-do-projeto)
+  - [Guidelines e Padrões](#guidelines-e-padrões)
+  - [Autenticação e Segurança](#autenticação-e-segurança)
+  - [Modelagem do Sistema](#modelagem-do-sistema)
+    - [Modelos de Dados (ERD)](#modelos-de-dados-erd)
+    - [Arquitetura do Sistema](#arquitetura-do-sistema)
+    - [Fluxo de Autenticação](#fluxo-de-autenticação)
+    - [Fluxo CRUD de Carros](#fluxo-crud-de-carros)
+    - [Fluxo de Segurança](#fluxo-de-segurança)
+  - [📜 Créditos e Agradecimentos](#-créditos-e-agradecimentos)
 
 <br>
 
@@ -105,7 +112,7 @@ __🚧 Funcionalidades em desenvolvimento__: Tarefas Assíncronas e Agendadas: A
 As principais tecnologias, frameworks e ferramentas utilizadas na construção deste projeto são:
 
 * __Back-end__:
-    * Python 3.13
+    * Python 3.14
     * Django 5.2
     * Gunicorn (Servidor de Aplicação WSGI)
     * Google Generative AI (para a API do Gemini)

@@ -1,10 +1,10 @@
 # Dockerfile para ambiente de desenvolvimento local
 
 # Estágio 1: Define a imagem base
-# Usamos a imagem oficial do Python 3.13 na sua versão 'slim-bookworm'.
+# Usamos a imagem oficial do Python 3.14 na sua versão 'slim-bookworm'.
 # 'slim' é menor que a padrão e 'bookworm' é a versão estável do Debian.
 # O 'AS python' cria um alias para este estágio, que podemos reutilizar.
-FROM python:3.13-slim-bookworm AS python
+FROM python:3.14-slim-bookworm AS python
 
 # Instala o 'uv' manualmente usando pip.
 # Este comando adiciona o 'uv' à nossa imagem base para que possamos usá-lo depois.
