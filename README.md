@@ -112,7 +112,7 @@ __🚧 Funcionalidades em desenvolvimento__: Tarefas Assíncronas e Agendadas: A
 As principais tecnologias, frameworks e ferramentas utilizadas na construção deste projeto são:
 
 * __Back-end__:
-    * Python 3.14
+    * Python 3.13
     * Django 5.2
     * Gunicorn (Servidor de Aplicação WSGI)
     * Google Generative AI (para a API do Gemini)
