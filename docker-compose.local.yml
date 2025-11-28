@@ -1,34 +1,31 @@
 volumes:
   project_web_cars_local_postgres_data: {}
-  project_web_cars_local_postgres_data_backups: {}
-  
+
 
 services:
   django:
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
-    image: project_web_cars_local_django
+    command: /start.sh
     container_name: project_web_cars_local_django
     depends_on:
       - postgres
+    env_file:
+      - ./.envs/.local/.env
+    image: project_web_cars_local_django
+    ports:
+      - '8000:8000'
     volumes:
       - /app/.venv
       - .:/app:z
-    env_file:
-      - ./.envs/.local/.env
-    ports:
-      - '8000:8000'
-    command: /start.sh
 
   postgres:
-    build:
-      context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    image: project_web_cars_production_postgres
     container_name: project_web_cars_local_postgres
-    volumes:
-      - project_web_cars_local_postgres_data:/var/lib/postgresql/data
-      - project_web_cars_local_postgres_data_backups:/backups
     env_file:
       - ./.envs/.local/.env
+    image: postgres:17
+    ports:
+    - "5432:5432"
+    volumes:
+      - project_web_cars_local_postgres_data:/var/lib/postgresql/data

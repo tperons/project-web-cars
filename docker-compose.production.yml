@@ -1,80 +1,72 @@
 volumes:
   production_postgres_data: {}
-  production_postgres_data_backups: {}
   production_traefik: {}
   production_django_media: {}
-  
-
 
 services:
   django:
     build:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
-
-    image: project_web_cars_production_django
-    volumes:
-      - production_django_media:/app/apps/media
+    command: /start.sh
     depends_on:
       - postgres
       - redis
     env_file:
       - ./.envs/.production/.env
-    command: /start.sh
-    restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD-SHELL", "python3 -c 'import urllib.request; urllib.request.urlopen(\"http:localhost:8000/health\")' || exit 1"]
       interval: 60s
       timeout: 20s
       retries: 5
       start_period: 120s
+    image: project_web_cars_production_django
+    restart: unless-stopped
+    volumes:
+      - production_django_media:/app/apps/media
 
   postgres:
-    build:
-      context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    image: project_web_cars_production_postgres
-    volumes:
-      - production_postgres_data:/var/lib/postgresql/data
-      - production_postgres_data_backups:/backups
     env_file:
       - ./.envs/.production/.env
-    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 60s
       timeout: 20s
       retries: 5
       start_period: 120s
+    image: docker.io/postgres:17
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
 
   traefik:
     build:
       context: .
       dockerfile: ./compose/production/traefik/Dockerfile
-    image: project_web_cars_production_traefik
     depends_on:
       - django
-    volumes:
-      - production_traefik:/etc/traefik/acme
+    image: project_web_cars_production_traefik
     ports:
       - '0.0.0.0:80:80'
       - '0.0.0.0:443:443'
     restart: unless-stopped
+    volumes:
+      - production_traefik:/etc/traefik/acme
 
   redis:
     image: docker.io/redis:6
     restart: unless-stopped
-    
+
 
   nginx:
     build:
       context: .
       dockerfile: ./compose/production/nginx/Dockerfile
-    image: project_web_cars_production_nginx
     depends_on:
       - django
-    volumes:
-      - production_django_media:/usr/share/nginx/media:ro
+    image: project_web_cars_production_nginx
     ports:
       - "8080:80"
     restart: unless-stopped
+    volumes:
+      - production_django_media:/usr/share/nginx/media:ro
