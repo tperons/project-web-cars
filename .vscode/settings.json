@@ -1,3 +1,132 @@
 {
-    "python-envs.pythonProjects": []
+  // ============================================
+  // EDITOR - Configurações Gerais
+  // ============================================
+  "editor.rulers": [88, 120],
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+
+  // ============================================
+  // FILES - Exclusões e Associações
+  // ============================================
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/.pytest_cache": true,
+    "**/.venv": false
+  },
+  "files.watcherExclude": {
+    "**/__pycache__/**": true,
+  },
+  "files.associations": {
+    "*.py": "python"
+  },
+
+  // ============================================
+  // PYTHON - Interpretador e Análise
+  // ============================================
+  "python.defaultInterpreterPath": "./.venv/bin/python",
+  "python.terminal.activateEnvironment": true,
+  "python.analysis.autoImportCompletions": true,
+  // "python.analysis.typeCheckingMode": "strict",
+  "python.analysis.diagnosticMode": "workspace",
+  // "python.analysis.inlayHints.functionReturnTypes": true,
+  // "python.analysis.inlayHints.variableTypes": true,
+  // "python.analysis.inlayHints.pytestParameters": true,
+
+  // ============================================
+  // MYPY - Type Checking Rigoroso
+  // ============================================
+  "mypy-type-checker.args": [
+    "--config-file=pyproject.toml"
+  ],
+  "mypy-type-checker.importStrategy": "fromEnvironment",
+  "mypy-type-checker.reportingScope": "workspace",
+  "mypy-type-checker.severity": {
+    "error": "Error",
+    "note": "Information"
+  },
+
+  // Python Linting (legado, mas ainda funciona)
+  "python.linting.enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.mypyPath": "mypy",
+  "python.linting.mypyArgs": [
+    "--config-file=pyproject.toml"
+  ],
+
+  // ============================================
+  // PYTHON - Formatação e Actions
+  // ============================================
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+
+  // ============================================
+  // HTML - Formatação e Sugestões
+  // ============================================
+  "[html]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": true,
+      "strings": true
+    }
+  },
+
+  // ============================================
+  // DJANGO HTML - Formatação e Sugestões
+  // ============================================
+  "[django-html]": {
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": true,
+      "strings": true
+    },
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4
+  },
+
+  // ============================================
+  // CSS - Formatação
+  // ============================================
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // ============================================
+  // JAVASCRIPT - Formatação
+  // ============================================
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // ============================================
+  // EMMET - Atalhos e Linguagens
+  // ============================================
+  "emmet.includeLanguages": {
+    "django-html": "html",
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+
+  // ============================================
+  // PRETTIER - Configurações
+  // ============================================
+  "prettier.tabWidth": 4,
+
+  // ============================================
+  // PROBLEMS - Visualização de Erros
+  // ============================================
+  "problems.showCurrentInStatus": true
 }
