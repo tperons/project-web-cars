@@ -23,7 +23,7 @@ services:
     image: project_web_cars_production_django
     restart: unless-stopped
     volumes:
-      - production_django_media:/app/apps/media
+      - production_django_media:/app/media
 
   postgres:
     env_file:
